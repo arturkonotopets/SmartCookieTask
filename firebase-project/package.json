@@ -1,0 +1,22 @@
+{
+  "name": "firebase-project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon ./src/index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  },
+  "dependencies": {
+    "dotenv": "^16.0.1",
+    "drip-nodejs": "^3.1.1",
+    "firebase": "^9.9.3",
+    "firebase-admin": "^11.0.1",
+    "oauth2orize": "^1.11.1"
+  }
+}

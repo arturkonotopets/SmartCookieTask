@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video-player</title>
+
+    <style>
+        .player{
+            margin: auto;
+            width: 500px;
+            height: 500px;
+        }
+        
+        #video-player {
+            width:100%;
+            height: 100%;
+            margin:0;
+        }
+
+        .modal{
+            width: 240px;
+            padding: 70px;
+            border: 1px solid lightgray;
+            position: absolute;
+            right: 40%;
+            top: 40%;
+            background-color: aliceblue;
+            display: flex;
+            flex-direction: column;
+            display: none;
+        }
+        .span_error{
+            color: red;
+            display: none;
+            margin: auto;
+            margin-bottom: 5px;
+        }
+        h3{
+            text-align: center;
+        }
+        .radio-section{
+            display: flex;
+            justify-content: space-around;
+            margin-top: 10px;
+        }
+        h1{
+            text-align: center;
+            color: rgb(0, 255, 0);
+        }
+        .congratulation{
+            display: none;
+        }
+    </style>
+</head>
+<body>
+    <div class="player">
+        <video 
+            src="./Move and Add, Add and Move _ Jack Hartmann Addition Song.mp4" 
+            id='video-player' 
+            preload='metadata' 
+            controls
+            poster="./jack_hartmann.jpg"
+        ></video>       
+    </div>
+
+    <div class="modal">
+        <div class="task">
+
+            <span class="span_error">invalid value, try again</span>
+            <h3>2+3= ?</h3>
+
+            <div class="radio-section">
+                <div>
+                    <input id="value_5" type="radio" value="5" name="param" onchange={checkInput(this)}>
+                    <label for="value_5">5</label>
+                </div>
+                <div>
+                    <input id="value_8" type="radio" value="8" name="param" onchange={checkInput(this)}>
+                    <label for="value_8">8</label>
+                </div>
+            </div>
+
+            <div class="radio-section">
+                <div>
+                    <input id="value_4" type="radio" value="4" name="param" onchange={checkInput(this)}>
+                    <label for="value_4">4</label>
+                </div>
+                <div>
+                    <input id="value_3" type="radio" value="3" name="param" onchange={checkInput(this)}>
+                    <label for="value_3">3</label>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="congratulation">
+            <h1>!!!Cool!!!</h1>
+            <h3>3 + 2 = 5</h3>
+        </div>
+        
+    </div>
+
+    <script>
+        
+        const video = document.getElementById("video-player")
+        const spanError = document.querySelector(".span_error")
+        const modal = document.querySelector(".modal")
+        const task = document.querySelector(".task")
+        const congratulation = document.querySelector(".congratulation")
+        
+        let minutes = 0;
+        let seconds = 0;
+        let resetSecund = 0;
+
+        video.ontimeupdate = ()=> videoTime()
+
+        function checkInput(input){
+            if (input.value === "5") {
+                task.setAttribute("style", "display:none")
+                congratulation.setAttribute("style", "display:block")
+                
+                setTimeout(()=>{
+                    modal.setAttribute("style", "display:none")
+                    spanError.setAttribute("style", "display:none")
+                    task.setAttribute("style", "display:block")
+                    congratulation.setAttribute("style", "display:none")
+                    input.checked = false
+                    video.play()
+                },5000)
+            } else{
+                spanError.setAttribute("style", "display:block")
+            }
+        }
+
+        function videoTime() { 
+            minutes = Math.floor(video.currentTime / 60)
+            seconds = Math.floor(video.currentTime - minutes * 60)
+            
+            if (minutes === 1 && seconds === 4) {
+                if (resetSecund < 1){
+                    video.pause()
+                    modal.setAttribute("style", "display:block")
+                    resetSecund+=1;
+                }
+            } else{
+                resetSecund = 0
+            }
+        }
+        
+    </script>
+</body>
+</html>
